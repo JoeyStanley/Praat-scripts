@@ -1,21 +1,19 @@
 ###########################################################################################
 #
-# 	The goal for this script is to modify a selected TextGrid and remove any extraneous
-#	boundaries that DARLA outputs and consolodate them into a single blank boundary. 
-# 	Extraneous boundaries are any adjacent boundaries marked as blank, "sil", "#", or, "sp", 
+# 	This script is to modifies a selected TextGrid and removes any extraneous
+#	boundaries that DARLA outputs and consolodates them into a single blank interval. 
+# 	Extraneous intervals are any adjacent intervals marked as blank, "sil", "#", or, "sp", 
 #
-#	Written by Joey Stanley, Septmeber 23, 2016. Home, Athens, GA.
+#	Written by Joey Stanley
+#	Septmeber 23, 2016
+#	Home, Athens, Georgia
 #
 ###########################################################################################
 
-writeInfoLine:  "Removing extraneous boundaries..."
-appendInfoLine: ""
+writeInfoLine:  "Removing extraneous boundaries...", newline$
 
-# Good site: http://praatscripting.lingphon.net/index.html
-
-# Select the highlighted textgrid. "selected$" gets the name
+# Select the highlighted textgrid. 
 thisTextgrid$ = selected$("TextGrid")
-
 select TextGrid 'thisTextgrid$'
 
 # Make a copy and rename it
@@ -31,6 +29,7 @@ for thisTier from 1 to 2
 		thisText$ = Get label of interval: thisTier, thisInterval 
 
 		if thisText$ = "sil" or thisText$ = "#" or thisText$ = "sp"
+
 			# No replacement text argument means remove the text
 			Set interval text... thisTier thisInterval 
 		endif 
@@ -54,7 +53,7 @@ for thisTier from 1 to 2
 
 		if thisInterval < numberOfCurrentIntervals 
 	
-			# Keep looping until the conditions have been met (=Perl redo function)
+			# Keep looping until the conditions have been met
 			successful = 0
 			while not successful
 
@@ -97,5 +96,4 @@ for thisTier from 1 to 2
 # Move on to the next tier
 endfor
 
-appendInfoLine: ""
-appendInfoLine: "Whoo-hoo! It didn't crash!"
+appendInfoLine: newline$, "Whoo-hoo! It didn't crash!"
